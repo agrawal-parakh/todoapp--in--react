@@ -4,9 +4,10 @@
 }
 
 div.footer {
-  position: absolute;
-  top: 100vh;
+  position: relative;
   width: 100%;
+  top: 100vh;
+  
 }
 
 footer {
