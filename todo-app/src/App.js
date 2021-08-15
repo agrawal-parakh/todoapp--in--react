@@ -2,13 +2,21 @@ import "./App.css";
 import { Header } from "./Mycopmonents/Header";
 import { Todos } from "./Mycopmonents/Todos";
 import { Footer } from "./Mycopmonents/Footer";
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { Addtodo } from "./Mycopmonents/Addtodo";
 import { About } from "./Mycopmonents/About";
 import { Contact } from "./Mycopmonents/Contact";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+
+  let initTodo;
+  if (localStorage.getItem("my_todos") === null) {
+    initTodo = [];
+  } else {
+    initTodo = JSON.parse(localStorage.getItem("my_todos"));
+  }
+
  
   const delete_todo = (todo) => {
     console.log("delete button works", todo);
@@ -20,7 +28,8 @@ function App() {
         return e !== todo;
       })
     );
-
+    localStorage.setItem("my_todos",JSON.stringify(my_todos));
+console.log("localstorage us",localStorage)
   };
 
   const addTodo = (title, desc) => {
@@ -38,11 +47,18 @@ function App() {
     setTodos([...my_todos, my_addTodos]);
     console.log("my_add todos is", my_addTodos);
 
-    // localStorage.setItem("todos is",JSON.stringify(my_todos));
-    // console.log("local storage is",localStorage)
-  };
+    
 
-  const [my_todos, setTodos] = useState([]);
+    // localStorage.setItem("my_todos",JSON.stringify(my_todos));
+    // console.log("localstorage us",localStorage)
+ 
+  };
+  
+
+  const [my_todos, setTodos] = useState(initTodo);
+  useEffect(() => {
+    localStorage.setItem("my_todos",JSON.stringify(my_todos));
+  }, [my_todos])
 
   return (
     <>
@@ -67,7 +83,7 @@ function App() {
             <About />
           </Route>
 
-          <Route path="/contact">
+          <Route exact path="/contact">
             <Contact />
           </Route>
         </Switch>

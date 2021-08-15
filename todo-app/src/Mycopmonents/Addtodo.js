@@ -10,7 +10,12 @@ export const Addtodo = (props) => {
     if(title==="" || desc===""){
         alert("title or desc cannot be empty")
     }
-    props.addTodo(title,desc);
+    else{
+      props.addTodo(title,desc);
+      setTitle("");
+      setDesc("");
+    }
+  
   };
 
   return (
