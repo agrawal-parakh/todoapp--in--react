@@ -56,9 +56,23 @@ console.log("localstorage us",localStorage)
   
 
   const [my_todos, setTodos] = useState(initTodo);
+  //any time todo is change useEffect calls the function amd save the new todo in ls
   useEffect(() => {
-    localStorage.setItem("my_todos",JSON.stringify(my_todos));
+    localStorage.setItem("my_todos",JSON.stringify(my_todos)); //add data in ls
   }, [my_todos])
+
+  
+  // function for page 404
+  const not_found=(()=>{
+    return (
+      <>
+      <h2>page not found 404</h2>
+      <p>some error occured</p>
+      </>
+    )
+  })
+
+
 
   return (
     <>
@@ -85,6 +99,10 @@ console.log("localstorage us",localStorage)
 
           <Route exact path="/contact">
             <Contact />
+          </Route>
+{/* setting up page 404 */}
+          <Route component={not_found}>
+
           </Route>
         </Switch>
 
